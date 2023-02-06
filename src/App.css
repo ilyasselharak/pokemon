@@ -73,12 +73,15 @@ a{
   .results ul li {
     list-style: none;
     border-radius: 3px;
-    opacity: 0;
-    display: none;
+    
     padding: 8px 12px;
     transition: all .5s linear;
   }
-  
+  .flex-item{
+    align-items: center;
+    display: flex;
+    column-gap: 20px;
+  }
   .show .results ul li {
     opacity: 1;
     display: block;

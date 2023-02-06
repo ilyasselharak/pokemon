@@ -1,6 +1,7 @@
 import React,{useEffect,useState} from 'react'
 import axios from 'axios'
 import {SearchOutlined} from '@ant-design/icons';
+import { Link } from 'react-router-dom';
 
 function Header() {
   const [data,setData]=useState([]);
@@ -21,6 +22,9 @@ function Header() {
     if (search.length!==0){
       setEv(true)
     }
+    if(e.target.value===""){
+      setEv(false)
+    }
     
     
     setList(search)
@@ -33,13 +37,15 @@ function Header() {
         <div className="wrapper">
           <input onChange={handleInput} className="input-container" type="text" placeholder="select team from the list"/>
           <button><SearchOutlined /></button>
-          <div className={ev?"results":"none"} id="res">
+          <div className={ev?"results":"none"} >
              <ul>
               {list?.map(item => {
               return (
               <li>
-              <img src={`https://img.pokemondb.net/artwork/large/${item.name}.jpg`} alt={item.name}/>
+              <Link className='flex-item' to={`/pokemon/${item.name}`}>
+              <img width="100px" height="100px" src={`https://img.pokemondb.net/artwork/large/${item.name}.jpg`} alt={item.name}/>
               {item.name}
+              </Link>
                </li>)
              })}
              </ul>
