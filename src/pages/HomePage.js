@@ -5,43 +5,13 @@ import Pokemon from '../component/Pokemon';
 
 function HomePage() {
   const [name,setName]=useState([]);
-  const [page, setPage] = useState(1);
   const [offset, setOffset]= useState(0)
   
   const handleChange = (e, value) => {
     e.preventDefault();
-    setPage(value);
-    
-    if(value===1){
-      setOffset(0)
-    }
-    
-    
-    
 
-    console.log(`${value}${offset}${page}`)
-    if(value>page){
-      console.log(true)
-    }
-    if(value<page){
-      if(value===1){
-        setOffset(0)
-      }else if(value===2){
-        setOffset(20)
-        
-      }else{
-        setOffset(value*20)
-      }
-      
-    }else{
-      if(value===2){
-        setOffset(20)
-      }else{
-        setOffset(value*20)
-      }
-      
-    }
-    
+    setOffset((value-1)*20)
+    console.log(`${value}${offset}`)
   };
   useEffect(() => {
     axios.get(`https://pokeapi.co/api/v2/pokemon/?offset=${offset}`)
@@ -58,7 +28,7 @@ function HomePage() {
       
      
       <Stack className="wid" spacing={2}>
-      <Pagination count={63} color="primary" page={page} onChange={handleChange} />
+      <Pagination count={63} color="primary" onChange={handleChange} />
       </Stack>
       <div className='container'>{
         name.map(pokemon=>{

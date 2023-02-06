@@ -5,8 +5,7 @@ import { Link } from 'react-router-dom';
 
 function Header() {
   const [data,setData]=useState([]);
-  const [list,setList]=useState();
-  const [ev,setEv]=useState(false);
+  const [list,setList]=useState([]);
   useEffect(() => {
     axios.get('https://pokeapi.co/api/v2/pokemon/?limit=1279')
     .then(res=>{
@@ -19,16 +18,8 @@ function Header() {
   const handleInput=(e)=>{
     e.preventDefault();
     let search= data?.filter(item=>item?.name.toLowerCase().includes(e.target.value.toLowerCase()))
-    if (search.length!==0){
-      setEv(true)
-    }
-    if(e.target.value===""){
-      setEv(false)
-    }
-    
-    
     setList(search)
-    
+    console.log(list)
   }
   return (
     <div className='flex header-container'>
@@ -37,7 +28,7 @@ function Header() {
         <div className="wrapper">
           <input onChange={handleInput} className="input-container" type="text" placeholder="select team from the list"/>
           <button><SearchOutlined /></button>
-          <div className={ev?"results":"none"} >
+          <div className={list.length ? "results" : "none"} >
              <ul>
               {list?.map(item => {
               return (
