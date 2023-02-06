@@ -58,8 +58,6 @@ function PokemonInfo() {
             })}
                 </ul>
             </details>
-            
-            
             <p>hp: {poke?.stats[0].base_stat}</p>
             <p>attack: {poke?.stats[1].base_stat}</p>
             <p>defense: {poke?.stats[2].base_stat}</p>
