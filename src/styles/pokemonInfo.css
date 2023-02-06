@@ -1,0 +1,16 @@
+.pokemon-conainer{
+    display: flex;
+    width: 90%;
+    margin: auto;
+    align-items: center;
+}
+.pokemon-conainer .img{
+    width: 50%;
+}
+.pkm-til{
+    text-align: center;
+}
+img{
+    border: solid 1px #333;
+    border-radius: 15px;
+}

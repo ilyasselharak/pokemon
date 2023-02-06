@@ -1,0 +1,20 @@
+.container{
+    width: 90%;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+.center{
+    text-align: center;
+}
+.abs{
+    position: absolute;
+}
+.wid{
+    width: 10px;
+}
+.margin-top{
+    margin-top: 35px;
+    
+}
