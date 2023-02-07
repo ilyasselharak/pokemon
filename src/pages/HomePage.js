@@ -6,7 +6,6 @@ import Pokemon from '../component/Pokemon';
 function HomePage() {
   const [name,setName]=useState([]);
   const [offset, setOffset]= useState(0)
-  
   const handleChange = (e, value) => {
     e.preventDefault();
 

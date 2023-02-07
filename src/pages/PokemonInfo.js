@@ -4,45 +4,57 @@ import { useParams } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import "../styles/pokemonInfo.css"
 import {ArrowLeftOutlined,ArrowRightOutlined } from '@ant-design/icons';
-
+import PokeData from '../PokeData'
+import { useContext } from 'react'
 function PokemonInfo() {
+  const {pokemonData,setPokemonData} = useContext(PokeData)
     const {name} = useParams()
     const [poke,setPoke] =useState()
-    const ablt = poke?.abilities;
-    const [ince,setIncrease]=useState([])
-    const [decr,setDecrease]=useState([])
-    useEffect(() => {
-        axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`)
-        .then(res=>{setPoke(res.data)}).catch(err=>{console.log(err)})
-      }, [name])
 
-    useEffect(() => {
-        axios.get(`https://pokeapi.co/api/v2/pokemon/${(poke?.id)+1}`)
-         .then((response) => setIncrease(response.data.name))
-         .catch(err => console.log(err));
-    }, [poke?.id]);
-    useEffect(() => {
-        axios.get(`https://pokeapi.co/api/v2/pokemon/${(poke?.id)-1}`)
-         .then((resp) => setDecrease(resp.data.name))
-         .catch(err => console.log(err));
-    }, [poke?.id]);
     
-   const style={
+    const style={
       display:"none",
-   }
-   const disp={
+    }
+    const disp={
       display:"block",
-   }
+    }
+  
+    
+    useEffect(() => {
+      pokemonData.some(element => {
+        if (element.name === name) {
+         console.log(element.name);
+        }
+        axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`)
+        .then(res=>{
+
+          setPoke(res.data)
+
+
+          setPokemonData([...pokemonData,
+            {id:res.data.id, abilities: res.data.abilities, name: name, hp: res.data.stats[0].base_stat, attack: res.data.stats[1].base_stat, defense: res.data.stats[2].base_stat, specialAttack: res.data.stats[3].base_stat, specialDefense: res.data.stats[4].base_stat, speed:res.data.stats[5].base_stat}
+          ])
+        }).catch(err=>{console.log(err)})
+      });
       
- 
+      
+      }, [name])
+      
+      console.log(pokemonData)
+      
+    
+        
+    
+    
+    
       
   return (
     <div>
         <h2 className='pkm-til'>
         
-          <Link style={poke?.id===1?style:disp} to={`/pokemon/${decr}`}><ArrowLeftOutlined  className='left abs'/></Link>
+          <Link style={poke?.id===1?style:disp} to={`/pokemon/`}><ArrowLeftOutlined  className='left abs'/></Link>
         {name}
-        <Link to={`/pokemon/${ince}`}><ArrowRightOutlined className='right abs' /></Link>
+        <Link to={`/pokemon/bulbasaur`}><ArrowRightOutlined className='right abs' /></Link>
         </h2>
         
         
@@ -53,11 +65,14 @@ function PokemonInfo() {
             <details>
                 <summary>abilities:</summary>
                 <ul>
-                {ablt?.map(item=>{
+                {(poke?.abilities)?.map(item=>{
+
                 return <li>{item?.ability.name}</li>
             })}
                 </ul>
             </details>
+            
+            
             <p>hp: {poke?.stats[0].base_stat}</p>
             <p>attack: {poke?.stats[1].base_stat}</p>
             <p>defense: {poke?.stats[2].base_stat}</p>

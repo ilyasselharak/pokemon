@@ -4,12 +4,14 @@ import {SearchOutlined} from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 
 function Header() {
+  
   const [data,setData]=useState([]);
   const [list,setList]=useState([]);
   useEffect(() => {
     axios.get('https://pokeapi.co/api/v2/pokemon/?limit=1279')
     .then(res=>{
      setData(res.data.results)
+     
     }).catch(err=>{
       console.log(err)
     })
@@ -18,12 +20,15 @@ function Header() {
   const handleInput=(e)=>{
     e.preventDefault();
     let search= data?.filter(item=>item?.name.toLowerCase().includes(e.target.value.toLowerCase()))
-    setList(search)
+    setList(e.target.value ? search : [])
+    if(e.target.value.length===0){
+      setList([])
+    }
     console.log(list)
   }
   return (
     <div className='flex header-container'>
-     <h1>Pokemon</h1>
+     <Link to={"/pokemon/venusaur"}><h1>Pokemon</h1></Link>
      <div className="ser-container">
         <div className="wrapper">
           <input onChange={handleInput} className="input-container" type="text" placeholder="select team from the list"/>
