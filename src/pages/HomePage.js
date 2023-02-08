@@ -8,12 +8,12 @@ function HomePage() {
   const [name,setName]=useState([]);
   const [offset, setOffset]= useState(0)
   let [loading, setLoading] = useState(false);
-  useEffect(() => {
+  const iconDisplay=() => {
     setLoading(true)
     setTimeout(()=>{
       setLoading(false)
-    }, 5000)
-  }, [])
+    }, 2000)
+  };
   
   const handleChange = (e, value) => {
     e.preventDefault();
@@ -36,7 +36,7 @@ function HomePage() {
       
      
       <Stack className="wid" spacing={2}>
-      <Pagination onClick={() => setLoading(!loading)} count={63} color="primary" onChange={handleChange} />
+      <Pagination onClick={()=>iconDisplay()} count={63} color="primary" onChange={handleChange} />
       </Stack>
       
       {
