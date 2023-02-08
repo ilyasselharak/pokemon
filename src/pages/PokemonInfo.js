@@ -27,21 +27,17 @@ function PokemonInfo() {
           setPokemonData([...pokemonData,
             {id:res.data.id, abilities: res.data.abilities, name: name, hp: res.data.stats[0].base_stat, attack: res.data.stats[1].base_stat, defense: res.data.stats[2].base_stat, specialAttack: res.data.stats[3].base_stat, specialDefense: res.data.stats[4].base_stat, speed:res.data.stats[5].base_stat, weight : res.data.weight,height: res.data.height}
           ])
+          axios.get(`https://pokeapi.co/api/v2/pokemon/${(res.data.id)+1}`)
+       .then((response) => {
+        setIncrease(response.data.name)
+        }).catch(err => console.log(err));
+        axios.get(`https://pokeapi.co/api/v2/pokemon/${(res.data.id)-1}`)
+       .then((resp) => setDecrease(resp.data.name))
+       .catch(err => console.log(err));
         })
         .catch(err=>{console.log(err)})
       }
     }, [name])
-    useEffect(() => {
-      axios.get(`https://pokeapi.co/api/v2/pokemon/${(list[0]?.id)+1}`)
-       .then((response) => setIncrease(response.data.name))
-       .catch(err => console.log(err));
-      }, [list[0]?.id]);
-    useEffect(() => {
-      axios.get(`https://pokeapi.co/api/v2/pokemon/${(list[0]?.id)-1}`)
-       .then((resp) => setDecrease(resp.data.name))
-       .catch(err => console.log(err));
-    }, [list[0]?.id]);
-    console.log(list)
   return (
     <div>
         <h2 className='pkm-til'>
