@@ -21,22 +21,26 @@ function PokemonInfo() {
   
     
     useEffect(() => {
-      pokemonData.some(element => {
+      const isFound = pokemonData.some(element => {
         if (element.name === name) {
-         console.log(element.name);
+          
+          return true;
         }
+        
+        return false;
+      });
+      if(!isFound){
         axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`)
         .then(res=>{
-
           setPoke(res.data)
-
-
           setPokemonData([...pokemonData,
             {id:res.data.id, abilities: res.data.abilities, name: name, hp: res.data.stats[0].base_stat, attack: res.data.stats[1].base_stat, defense: res.data.stats[2].base_stat, specialAttack: res.data.stats[3].base_stat, specialDefense: res.data.stats[4].base_stat, speed:res.data.stats[5].base_stat}
           ])
-        }).catch(err=>{console.log(err)})
-      });
-      
+        }).catch(err=>{
+          console.log(err)
+})
+console.log("true")
+      }
       
       }, [name])
       
