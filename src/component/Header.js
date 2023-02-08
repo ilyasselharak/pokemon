@@ -28,7 +28,7 @@ function Header() {
   }
   return (
     <div className='flex header-container'>
-     <Link to={"/pokemon/venusaur"}><h1>Pokemon</h1></Link>
+     <Link to={"/"}><h1>Pokemon</h1></Link>
      <div className="ser-container">
         <div className="wrapper">
           <input onChange={handleInput} className="input-container" type="text" placeholder="select team from the list"/>

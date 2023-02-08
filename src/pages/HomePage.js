@@ -12,7 +12,7 @@ function HomePage() {
     setLoading(true)
     setTimeout(()=>{
       setLoading(false)
-    }, 2000)
+    }, 5000)
   }, [])
   
   const handleChange = (e, value) => {
