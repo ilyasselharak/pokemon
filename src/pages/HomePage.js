@@ -36,7 +36,7 @@ function HomePage() {
       
      
       <Stack className="wid" spacing={2}>
-      <Pagination onClick={()=>iconDisplay()} count={63} color="primary" onChange={handleChange} />
+      <Pagination onClick={() => iconDisplay()} count={63} color="primary" onChange={handleChange} />
       </Stack>
       
       {
