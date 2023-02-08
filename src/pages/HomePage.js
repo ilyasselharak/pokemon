@@ -2,13 +2,22 @@ import React,{ useEffect, useState } from 'react'
 import axios from 'axios'
 import { Stack, Pagination} from '@mui/material';
 import Pokemon from '../component/Pokemon';
+import ClipLoader from "react-spinners/ClipLoader";
 
 function HomePage() {
   const [name,setName]=useState([]);
   const [offset, setOffset]= useState(0)
+  let [loading, setLoading] = useState(false);
+  useEffect(() => {
+    setLoading(true)
+    setTimeout(()=>{
+      setLoading(false)
+    }, 2000)
+  }, [])
+  
   const handleChange = (e, value) => {
     e.preventDefault();
-
+   
     setOffset((value-1)*20)
     console.log(`${value}${offset}`)
   };
@@ -27,15 +36,21 @@ function HomePage() {
       
      
       <Stack className="wid" spacing={2}>
-      <Pagination count={63} color="primary" onChange={handleChange} />
+      <Pagination onClick={() => setLoading(!loading)} count={63} color="primary" onChange={handleChange} />
       </Stack>
-      <div className='container'>{
-        name.map(pokemon=>{
-          return <Pokemon pokemon={pokemon}/>
-        })
-      }
       
-      </div>
+      {
+        loading ? 
+        <ClipLoader className={'container'} color={"#36d7b7"} loading={loading}  size={150} /> 
+        :
+        <div className='container'>{
+          name.map(pokemon=>{
+            return <Pokemon pokemon={pokemon}/>
+          })
+        }
+        
+        </div>
+      }
     </div>
   )
 }
